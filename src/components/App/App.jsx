@@ -22,10 +22,6 @@ export const initializeState = () => {
   };
 };
 
-export const clearLocalStorage = () => {
-  localStorage.removeItem('feedbackState');
-};
-
 export const App = () => {
   const [feedbackState, setFeedbackState] = useState(initializeState);
 
@@ -42,7 +38,7 @@ export const App = () => {
 
   const handleResetClick = () => {
     setFeedbackState({ good: 0, neutral: 0, bad: 0 });
-    clearLocalStorage();
+    
   };
 
   const totalFeedback = feedbackState.good + feedbackState.neutral + feedbackState.bad;
