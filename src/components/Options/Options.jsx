@@ -1,55 +1,22 @@
-import { useState } from 'react';
-import { clearLocalStorage } from '../App/App';
-
-export const Options = ({ setFeedbackState }) => {
-  const setTotalFeedback = useState(0);
-
-  const handleGoodClick = () => {
-    setFeedbackState((prevState) => ({
-      ...prevState,
-      good: prevState.good + 1,
-    }));
-    setTotalFeedback((prevTotal) => prevTotal + 1);
-  };
-
-  const handleNeutralClick = () => {
-    setFeedbackState((prevState) => ({
-      ...prevState,
-      neutral: prevState.neutral + 1,
-    }));
-    setTotalFeedback((prevTotal) => prevTotal + 1);
-  };
-
-  const handleBadClick = () => {
-    setFeedbackState((prevState) => ({
-      ...prevState,
-      bad: prevState.bad + 1,
-    }));
-    setTotalFeedback((prevTotal) => prevTotal + 1);
-  };
-
-  const handleResetClick = () => {
-    setFeedbackState({ good: 0, neutral: 0, bad: 0 });
-  setTotalFeedback(0);
-  clearLocalStorage();
-  };
-
+export const Options = ({ handleFeedbackUpdate, handleResetClick, feedbackState }) => {
 
   return (
     <div>
       <ul>
         <li>
-          <button onClick={handleGoodClick}>Good</button>
+          <button onClick={() => handleFeedbackUpdate('good')}>Good</button>
         </li>
         <li>
-          <button onClick={handleNeutralClick}>Neutral</button>
+          <button onClick={() => handleFeedbackUpdate('neutral')}>Neutral</button>
         </li>
         <li>
-          <button onClick={handleBadClick}>Bad</button>
+          <button onClick={() => handleFeedbackUpdate('bad')}>Bad</button>
         </li>
-        <li>
-          <button onClick={handleResetClick}>Reset</button>
-        </li>
+        {feedbackState.good > 0 || feedbackState.neutral > 0 || feedbackState.bad > 0 ? (
+          <li>
+            <button onClick={handleResetClick}>Reset</button>
+          </li>
+        ) : null}
       </ul>
     </div>
   );
